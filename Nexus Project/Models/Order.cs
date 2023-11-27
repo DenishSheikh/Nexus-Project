@@ -1,4 +1,6 @@
-﻿namespace Nexus_Project.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Nexus_Project.Models
 {
     public class Order
     {
@@ -8,5 +10,7 @@
         public DateTime OrderDate { get; set; }
         public string Status { get; set; }
 
+
     }
+
 }

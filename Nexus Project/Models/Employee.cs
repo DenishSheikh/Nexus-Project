@@ -1,4 +1,6 @@
-﻿namespace Nexus_Project.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Nexus_Project.Models
 {
     public class Employee
     {
@@ -9,4 +11,5 @@
         public string Password { get; set; }
 
     }
+
 }

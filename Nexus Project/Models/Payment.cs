@@ -1,4 +1,6 @@
-﻿namespace Nexus_Project.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Nexus_Project.Models
 {
     public class Payment
     {
@@ -7,4 +9,5 @@
         public decimal AmountPaid { get; set; }
         public DateTime PaymentDate { get; set; }
     }
+
 }

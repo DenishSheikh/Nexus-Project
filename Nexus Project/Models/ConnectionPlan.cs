@@ -1,4 +1,6 @@
-﻿namespace Nexus_Project.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Nexus_Project.Models
 {
     public class ConnectionPlan
     {
@@ -8,4 +10,5 @@
         public decimal Charges { get; set; }
 
     }
+
 }
