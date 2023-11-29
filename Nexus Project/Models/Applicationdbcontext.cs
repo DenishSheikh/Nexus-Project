@@ -8,7 +8,7 @@ namespace Nexus_Project.Models
         {
 
         }
-        public DbSet<Payment> Product { get; set; }
+        public DbSet<Payment> Payment { get; set; }
         public DbSet<Billing> Billings { get; set; }
         public DbSet<ConnectionPlan> ConnectionPlan { get; set; }
         public DbSet<Customer> Customer { get; set; }

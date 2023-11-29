@@ -19,8 +19,7 @@ namespace Nexus_Project.Controllers
         {
             var Billing = new Billing()
             {
-                BillingId = Guid.NewGuid(),
-                CustomerId = Guid.NewGuid(),
+               BillingId = Guid.NewGuid(),
                 Amount = billing.Amount,
                 IsPaid = billing.IsPaid
 
