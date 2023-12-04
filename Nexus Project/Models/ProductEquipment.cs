@@ -6,8 +6,8 @@ namespace Nexus_Project.Models
     public class ProductEquipment
     {
         [Key]
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
+        public Guid ProductEquipmentId { get; set; }
+        public string ProductEquipmentName { get; set; }
     }
 
 }

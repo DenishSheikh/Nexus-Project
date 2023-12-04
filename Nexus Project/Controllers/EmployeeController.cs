@@ -4,7 +4,7 @@ using Nexus_Project.Models;
 
 namespace Nexus_Project.Controllers
 {
-
+/*
     [ApiController]
     [Route("[controller]")]
     public class EmployeesController : Controller
@@ -88,5 +88,5 @@ namespace Nexus_Project.Controllers
         //    _context.SaveChangesAsync();
         //    return Ok();
         //}
-    }
+   }*/ 
 }

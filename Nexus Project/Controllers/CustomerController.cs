@@ -4,7 +4,7 @@ using Nexus_Project.Models;
 
 namespace Nexus_Project.Controllers
 {
-    [ApiController]
+  /*  [ApiController]
     [Route("[controller]")]
     public class CustomerController : Controller
     {
@@ -49,5 +49,5 @@ namespace Nexus_Project.Controllers
         //    return Ok(Customerlist);
         //}
 
-    }
+    }*/
 }

@@ -19,15 +19,15 @@ namespace Nexus_Project.Controllers
         {
             var ConnPlan = new ConnectionPlan()
             {
-                PlanId= ConnectionPlan.PlanId,
-                PlanName= ConnectionPlan.PlanName,
+                PlanId = ConnectionPlan.PlanId,
+                PlanName = ConnectionPlan.PlanName,
                 Description = ConnectionPlan.Description,
                 Charges = ConnectionPlan.Charges,
-             
+
 
             };
 
-            await _context.ConnectionPlan.AddAsync(ConnectionPlan);
+            await _context.ConnectionPlan.AddAsync(ConnPlan);
             await _context.SaveChangesAsync();
 
             return Ok();
