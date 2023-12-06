@@ -6,6 +6,7 @@ namespace Nexus_Project.Models
     {
          [Key]
       public Guid RolesId { get; set; }
-      public string RolesName { get; set; }
+     
+        public string RolesName { get; set; }
     }
 }

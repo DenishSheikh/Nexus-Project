@@ -4,7 +4,7 @@ using Nexus_Project.Models;
 
 namespace Nexus_Project.Controllers
 {
-  /*  [ApiController]
+   [ApiController]
     [Route("[Controller]")]
     public class BillingController : Controller
     {
@@ -41,7 +41,7 @@ namespace Nexus_Project.Controllers
         }
 
         [HttpGet]
-        [Route("{id : Guid}")]
+        [Route("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
             var billinglist = await _context.Billings.FindAsync(id);
@@ -52,5 +52,5 @@ namespace Nexus_Project.Controllers
             return Ok(billinglist);
         }
 
-    }*/
+    }
 }

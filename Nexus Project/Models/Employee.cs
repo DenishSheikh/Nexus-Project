@@ -9,9 +9,11 @@ namespace Nexus_Project.Models
         [Key]
         public Guid EmployeeId { get; set; }
         public string EmployeeName { get; set; }
-        public Roles RolesId { get; set; } // Admin, Accounts, Technical, Retail Outlet
+      
         public string Username { get; set; }
         public string Password { get; set; }
+        public int RoleId { get; set; }
+        public Roles Roles { get; set; }
 
     }
 

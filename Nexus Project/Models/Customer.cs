@@ -7,9 +7,12 @@ namespace Nexus_Project.Models
     public class Customer
     {
        [Key]
-       public Guid CustomerId { get; set; }
+       public int CustomerId { get; set; }
         public string CustomerName { get; set; }
-        public ProductEquipment ProductEquipmentId { get; set; }
+        //[ForeignKey("ProductEquipmentId:Guid"
+        //public ProductEquipment ProductEquipmentId { get; set; }
+        public int RoleId { get; set; }
+        public Roles Roles { get; set; }
 
 
     }

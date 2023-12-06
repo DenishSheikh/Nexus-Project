@@ -31,15 +31,15 @@ namespace Nexus_Project.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("CustomerId1")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
 
                     b.HasKey("BillingId");
 
-                    b.HasIndex("CustomerId1");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Billings");
                 });
@@ -68,20 +68,25 @@ namespace Nexus_Project.Migrations
 
             modelBuilder.Entity("Nexus_Project.Models.Customer", b =>
                 {
-                    b.Property<Guid>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"), 1L, 1);
 
                     b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ProductEquipmentId1")
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("RolesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("CustomerId");
 
-                    b.HasIndex("ProductEquipmentId1");
+                    b.HasIndex("RolesId");
 
                     b.ToTable("Customer");
                 });
@@ -100,7 +105,10 @@ namespace Nexus_Project.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RolesId1")
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("RolesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Username")
@@ -109,7 +117,7 @@ namespace Nexus_Project.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.HasIndex("RolesId1");
+                    b.HasIndex("RolesId");
 
                     b.ToTable("Employees");
                 });
@@ -120,14 +128,11 @@ namespace Nexus_Project.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CustomerId1")
+                    b.Property<Guid>("CustomerId:Guid")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("PlanId1")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -135,9 +140,7 @@ namespace Nexus_Project.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("CustomerId1");
-
-                    b.HasIndex("PlanId1");
+                    b.HasIndex("CustomerId:Guid");
 
                     b.ToTable("Order");
                 });
@@ -151,15 +154,10 @@ namespace Nexus_Project.Migrations
                     b.Property<decimal>("AmountPaid")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("PaymentId");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("Payment");
                 });
@@ -196,58 +194,6 @@ namespace Nexus_Project.Migrations
 
             modelBuilder.Entity("Nexus_Project.Models.Billing", b =>
                 {
-                    b.HasOne("Nexus_Project.Models.Customer", "CustomerId")
-                        .WithMany()
-                        .HasForeignKey("CustomerId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CustomerId");
-                });
-
-            modelBuilder.Entity("Nexus_Project.Models.Customer", b =>
-                {
-                    b.HasOne("Nexus_Project.Models.ProductEquipment", "ProductEquipmentId")
-                        .WithMany()
-                        .HasForeignKey("ProductEquipmentId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProductEquipmentId");
-                });
-
-            modelBuilder.Entity("Nexus_Project.Models.Employee", b =>
-                {
-                    b.HasOne("Nexus_Project.Models.Roles", "RolesId")
-                        .WithMany()
-                        .HasForeignKey("RolesId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RolesId");
-                });
-
-            modelBuilder.Entity("Nexus_Project.Models.Order", b =>
-                {
-                    b.HasOne("Nexus_Project.Models.Customer", "CustomerId")
-                        .WithMany()
-                        .HasForeignKey("CustomerId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Nexus_Project.Models.ConnectionPlan", "PlanId")
-                        .WithMany()
-                        .HasForeignKey("PlanId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CustomerId");
-
-                    b.Navigation("PlanId");
-                });
-
-            modelBuilder.Entity("Nexus_Project.Models.Payment", b =>
-                {
                     b.HasOne("Nexus_Project.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
@@ -255,6 +201,39 @@ namespace Nexus_Project.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Nexus_Project.Models.Customer", b =>
+                {
+                    b.HasOne("Nexus_Project.Models.Roles", "Roles")
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Roles");
+                });
+
+            modelBuilder.Entity("Nexus_Project.Models.Employee", b =>
+                {
+                    b.HasOne("Nexus_Project.Models.Roles", "Roles")
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Roles");
+                });
+
+            modelBuilder.Entity("Nexus_Project.Models.Order", b =>
+                {
+                    b.HasOne("Nexus_Project.Models.ConnectionPlan", "PlanId")
+                        .WithMany()
+                        .HasForeignKey("CustomerId:Guid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PlanId");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,7 +8,9 @@ namespace Nexus_Project.Models
     {
         [Key]
         public Guid PaymentId { get; set; }
-        public Customer Customer { get; set; }
+        //[ForeignKey("CustomerId:Guid")]
+
+        //public Customer CustomerId { get; set; }
         public decimal AmountPaid { get; set; }
         public DateTime PaymentDate { get; set; }
     }

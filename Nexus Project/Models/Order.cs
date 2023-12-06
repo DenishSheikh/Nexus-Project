@@ -7,9 +7,9 @@ namespace Nexus_Project.Models
     public class Order
     {
         [Key]
-        public Guid OrderId { get; set; }
+        public Guid  OrderId { get; set; }
+        [ForeignKey("CustomerId:Guid")]
 
-        public Customer CustomerId { get; set; }
         public ConnectionPlan PlanId { get; set; }
 
         public DateTime OrderDate { get; set; }
