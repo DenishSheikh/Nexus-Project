@@ -4,7 +4,7 @@ using Nexus_Project.Models;
 
 namespace Nexus_Project.Controllers
 {
-   [ApiController]
+    [ApiController]
     [Route("[Controller]")]
     public class BillingController : Controller
     {
@@ -19,7 +19,7 @@ namespace Nexus_Project.Controllers
         {
             var Billing = new Billing()
             {
-               BillingId = Guid.NewGuid(),
+                BillingId = Guid.NewGuid(),
                 Amount = billing.Amount,
                 IsPaid = billing.IsPaid
 
@@ -52,5 +52,47 @@ namespace Nexus_Project.Controllers
             return Ok(billinglist);
         }
 
+        [HttpPut]
+        [Route("{id}")]
+        
+        public async Task<IActionResult> UpdateBilling([FromRoute] Guid id, Billing updatebilling)
+        {
+            var billinglist = await _context.Billings.FindAsync(id);
+
+            if(billinglist == null) 
+            {
+            return NotFound(id);
+            } 
+            billinglist.Amount = updatebilling.Amount;
+            billinglist.IsPaid = updatebilling.IsPaid;
+
+            await _context.SaveChangesAsync();
+            return Ok(billinglist);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteBilling([FromRoute] Guid id)
+        {
+            var billinglist = await _context.Billings.FindAsync(id);
+            if (billinglist == null)
+            {
+                return NotFound();
+            }
+
+            _context.Billings.Remove(billinglist);
+            await _context.SaveChangesAsync();
+            return Ok(billinglist);
+        }
+
+
+
+
+
+
     }
-}
+}   
+           
+
+    
+
