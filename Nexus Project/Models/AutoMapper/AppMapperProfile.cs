@@ -8,6 +8,8 @@ namespace Nexus_Project.Models.AutoMapper
         public AppMapperProfile() 
         {
             CreateMap<BillingDto, Billing>();
+            CreateMap<EmployeeDto, Employee>();
+            CreateMap<CustomerDto, Customer>();
             
         }
     }

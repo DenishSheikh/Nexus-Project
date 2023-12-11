@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Nexus_Project.Migrations
 {
-    public partial class ddd : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -81,27 +81,6 @@ namespace Nexus_Project.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customer",
-                columns: table => new
-                {
-                    CustomerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
-                    RolesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customer", x => x.CustomerId);
-                    table.ForeignKey(
-                        name: "FK_Customer_Roles_RolesId",
-                        column: x => x.RolesId,
-                        principalTable: "Roles",
-                        principalColumn: "RolesId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
@@ -135,11 +114,32 @@ namespace Nexus_Project.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Billings", x => x.BillingId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customer",
+                columns: table => new
+                {
+                    CustomerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    RolesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BillingId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customer", x => x.CustomerId);
                     table.ForeignKey(
-                        name: "FK_Billings_Customer_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customer",
-                        principalColumn: "CustomerId",
+                        name: "FK_Customer_Billings_BillingId",
+                        column: x => x.BillingId,
+                        principalTable: "Billings",
+                        principalColumn: "BillingId");
+                    table.ForeignKey(
+                        name: "FK_Customer_Roles_RolesId",
+                        column: x => x.RolesId,
+                        principalTable: "Roles",
+                        principalColumn: "RolesId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -147,6 +147,11 @@ namespace Nexus_Project.Migrations
                 name: "IX_Billings_CustomerId",
                 table: "Billings",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customer_BillingId",
+                table: "Customer",
+                column: "BillingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customer_RolesId",
@@ -162,12 +167,21 @@ namespace Nexus_Project.Migrations
                 name: "IX_Order_CustomerId:Guid",
                 table: "Order",
                 column: "CustomerId:Guid");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Billings_Customer_CustomerId",
+                table: "Billings",
+                column: "CustomerId",
+                principalTable: "Customer",
+                principalColumn: "CustomerId",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Billings");
+            migrationBuilder.DropForeignKey(
+                name: "FK_Billings_Customer_CustomerId",
+                table: "Billings");
 
             migrationBuilder.DropTable(
                 name: "Employees");
@@ -182,10 +196,13 @@ namespace Nexus_Project.Migrations
                 name: "ProductEquipment");
 
             migrationBuilder.DropTable(
+                name: "ConnectionPlan");
+
+            migrationBuilder.DropTable(
                 name: "Customer");
 
             migrationBuilder.DropTable(
-                name: "ConnectionPlan");
+                name: "Billings");
 
             migrationBuilder.DropTable(
                 name: "Roles");

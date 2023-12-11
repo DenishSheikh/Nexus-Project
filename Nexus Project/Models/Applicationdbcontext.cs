@@ -22,8 +22,8 @@ namespace Nexus_Project.Models
         public DbSet<Employee> Employees { get; set; }
 
 
-        //// public DbSet<Roles> Roles { get; set; }
-        // public DbSet<Employee> Employees { get; set; }
+
+
     }
 
  

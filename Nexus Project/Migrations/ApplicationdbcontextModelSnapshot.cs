@@ -74,6 +74,9 @@ namespace Nexus_Project.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"), 1L, 1);
 
+                    b.Property<Guid?>("BillingId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -85,6 +88,8 @@ namespace Nexus_Project.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("BillingId");
 
                     b.HasIndex("RolesId");
 
@@ -205,6 +210,10 @@ namespace Nexus_Project.Migrations
 
             modelBuilder.Entity("Nexus_Project.Models.Customer", b =>
                 {
+                    b.HasOne("Nexus_Project.Models.Billing", null)
+                        .WithMany("CustomerList")
+                        .HasForeignKey("BillingId");
+
                     b.HasOne("Nexus_Project.Models.Roles", "Roles")
                         .WithMany()
                         .HasForeignKey("RolesId")
@@ -234,6 +243,11 @@ namespace Nexus_Project.Migrations
                         .IsRequired();
 
                     b.Navigation("PlanId");
+                });
+
+            modelBuilder.Entity("Nexus_Project.Models.Billing", b =>
+                {
+                    b.Navigation("CustomerList");
                 });
 #pragma warning restore 612, 618
         }

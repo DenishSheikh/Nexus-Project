@@ -98,8 +98,8 @@ namespace Nexus_Project.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBilling(BillingDto billingpayloads)
         {
-            var newbilling = mapper.Map<Billings>(billingpayloads);
-            _context.billing.Add(newbilling);
+            var newbilling = mapper.Map<Billing>(billingpayloads);
+            _context.Billings.Add(newbilling);
             this._context.SaveChanges();
 
             return Created($"/(newbilling.Id)", newbilling);
