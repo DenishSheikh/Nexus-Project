@@ -12,9 +12,11 @@ namespace Nexus_Project.Models
         public int CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
+        public List<Customer> CustomerList { get; set; }
 
         public decimal Amount { get; set; }
         public bool IsPaid { get; set; }
+
     }
 
 

@@ -12,8 +12,8 @@ using Nexus_Project.Models;
 namespace Nexus_Project.Migrations
 {
     [DbContext(typeof(Applicationdbcontext))]
-    [Migration("20231208124057_init")]
-    partial class init
+    [Migration("20231211124030_ddd")]
+    partial class ddd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

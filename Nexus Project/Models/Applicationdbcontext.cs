@@ -4,6 +4,8 @@ namespace Nexus_Project.Models
 {
     public class Applicationdbcontext : DbContext
     {
+        internal readonly object billing;
+
         public Applicationdbcontext(DbContextOptions<Applicationdbcontext> options):base(options)
         {
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Nexus_Project.Models.DTO;
 
 namespace Nexus_Project.Models.AutoMapper
 {
@@ -6,7 +7,8 @@ namespace Nexus_Project.Models.AutoMapper
     {
         public AppMapperProfile() 
         {
-        //CreateMap()
+            CreateMap<BillingDto, Billing>();
+            
         }
     }
 }
