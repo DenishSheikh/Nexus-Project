@@ -4,7 +4,7 @@ using Nexus_Project.Models;
 
 namespace Nexus_Project.Controllers
 {
-/*
+
     [ApiController]
     [Route("[controller]")]
     public class ProductEquipmentController : Controller
@@ -20,12 +20,12 @@ namespace Nexus_Project.Controllers
         {
             var ProductEquipmentt = new ProductEquipment()
             {
-                ProductId = ProductEquipment.ProductId,
-                ProductName = ProductEquipment.ProductName,
+                ProductEquipmentId = ProductEquipment.ProductEquipmentId,
+                ProductEquipmentName = ProductEquipment.ProductEquipmentName,
                 
             };
 
-            await _context.ProductEquipment.AddAsync(ProductEquipment);
+            await _context.ProductEquipment.AddAsync(ProductEquipmentt);
             await _context.SaveChangesAsync();
 
             return Ok();
@@ -40,17 +40,49 @@ namespace Nexus_Project.Controllers
             return Ok(ProductEquipmentlist);
         }
 
-        //[HttpGet]
-        //[Route("{id}")]
-        //public async Task<IActionResult> Get([FromRoute] Guid id)
-        //{
-        //    var ProductEquipmentlist = await _context.ProductEquipment.FindAsync(id);
-        //    if (ProductEquipmentlist == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(ProductEquipmentlist);
-        //}
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> Get([FromRoute] Guid id)
+        {
+            var ProductEquipmentlist = await _context.ProductEquipment.FindAsync(id);
+            if (ProductEquipmentlist == null)
+            {
+                return NotFound();
+            }
+            return Ok(ProductEquipmentlist);
+        }
 
-    }*/
+        [HttpPut]
+        [Route("{id}")]
+
+        public async Task<IActionResult> Update([FromRoute] Guid id, ProductEquipment updateproductequipment)
+        {
+            var ProductEquipmentlist = await _context.ProductEquipment.FindAsync(id);
+
+            if (ProductEquipmentlist == null)
+            {
+                return NotFound(id);
+            }
+            ProductEquipmentlist.ProductEquipmentId = updateproductequipment.ProductEquipmentId;
+            ProductEquipmentlist.ProductEquipmentName = updateproductequipment.ProductEquipmentName;
+
+            await _context.SaveChangesAsync();
+            return Ok(ProductEquipmentlist);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            var ProductEquipmentlist = await _context.ProductEquipment.FindAsync(id);
+            if (ProductEquipmentlist == null)
+            {
+                return NotFound();
+            }
+
+            _context.ProductEquipment.Remove(ProductEquipmentlist);
+            await _context.SaveChangesAsync();
+            return Ok(ProductEquipmentlist);
+        }
+    }
 }

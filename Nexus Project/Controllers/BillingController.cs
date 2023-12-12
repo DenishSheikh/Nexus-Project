@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nexus_Project.Models;
@@ -17,6 +18,50 @@ namespace Nexus_Project.Controllers
         {
             _context = context;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetCustomer()
+        {
+            var billing = await _context.Billings.Include(a => a.CustomerList).ToListAsync();
+            return Ok(billing);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBilling(BillingDto billingpayloads)
+        {
+            var newbilling = mapper.Map<Billing>(billingpayloads);
+            _context.Billings.Add(newbilling);
+            this._context.SaveChanges();
+
+            return Created($"/(newbilling.Id)", newbilling);
+        }
+
+
+        [HttpPut]
+        public async Task<IActionResult>UpdateBilling (BillingDto BillingDto)
+        {
+            var updatebilling = mapper.Map<Billing>(BillingDto);
+            this._context.Billings.Update(updatebilling);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+       [HttpDelete]
+       public async Task<IActionResult>DeleteBilling(int id)
+        {
+            var billingtodelete = await _context.Billings.Include(a => a.CustomerList).
+                Where(a => a.CustomerId == id).FirstOrDefaultAsync();
+            return Ok();
+        }
+
+
+
+
+
+    }
+}   
+           
+
+    
         //[HttpPost]
         //public async Task<IActionResult> Add([FromBody] Billing billing)
         //{
@@ -88,48 +133,4 @@ namespace Nexus_Project.Controllers
         //    return Ok(billinglist);
         //}
 
-        [HttpGet]
-        public async Task<IActionResult> GetCustomer()
-        {
-            var billing = await _context.Billings.Include(a => a.CustomerList).ToListAsync();
-            return Ok(billing);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddBilling(BillingDto billingpayloads)
-        {
-            var newbilling = mapper.Map<Billing>(billingpayloads);
-            _context.Billings.Add(newbilling);
-            this._context.SaveChanges();
-
-            return Created($"/(newbilling.Id)", newbilling);
-        }
-
-
-        [HttpPut]
-        public async Task<IActionResult>UpdateBilling (BillingDto BillingDto)
-        {
-            var updatebilling = mapper.Map<Billing>(BillingDto);
-            this._context.Billings.Update(updatebilling);
-            _context.SaveChanges();
-            return Ok();
-        }
-
-       [HttpDelete]
-       public async Task<IActionResult>DeleteBilling(int id)
-        {
-            var billingtodelete = await _context.Billings.Include(a => a.CustomerList).
-                Where(a => a.CustomerId == id).FirstOrDefaultAsync();
-            return Ok();
-        }
-
-
-
-
-
-    }
-}   
-           
-
-    
 

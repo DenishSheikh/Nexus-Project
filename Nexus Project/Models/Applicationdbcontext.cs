@@ -17,7 +17,7 @@ namespace Nexus_Project.Models
         public DbSet<ProductEquipment> ProductEquipment { get; set; }
         public DbSet<Order> Order { get; set; }
 
-        //public DbSet<Roles> Roles { get; set; }
+        public DbSet<Roles> Roles { get; set; }
 
         public DbSet<Employee> Employees { get; set; }
 

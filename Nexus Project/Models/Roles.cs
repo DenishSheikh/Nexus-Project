@@ -8,5 +8,6 @@ namespace Nexus_Project.Models
       public Guid RolesId { get; set; }
      
         public string RolesName { get; set; }
+
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Nexus_Project.Models;
 
 namespace Nexus_Project.Controllers
-{/*
+{
     [ApiController]
     [Route("[controller]")]
     public class PaymentController : Controller
@@ -41,17 +41,52 @@ namespace Nexus_Project.Controllers
             return Ok(Paymentlist);
         }
 
-        //[HttpGet]
-        //[Route("{id : Guid}")]
-        //public async Task<IActionResult> Get([FromRoute] Guid id)
-        //{
-        //    var Payment = await _context.Payment.FindAsync(id);
-        //    if (Payment == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(Payment);
-        //}
+        [HttpGet]
+        [Route("{id : Guid}")]
+        public async Task<IActionResult> Get([FromRoute] Guid id)
+        {
+            var Payment = await _context.Payment.FindAsync(id);
+            if (Payment == null)
+            {
+                return NotFound();
+            }
+            return Ok(Payment);
+        }
 
-    }*/
+        [HttpPut]
+        [Route("{id}")]
+
+        public async Task<IActionResult> Update([FromRoute] Guid id, Payment updatepayment)
+        {
+            var paymentlist = await _context.Payment.FindAsync(id);
+
+            if (paymentlist == null)
+            {
+                return NotFound(id);
+            }
+            paymentlist.PaymentId = updatepayment.PaymentId;
+            paymentlist.AmountPaid = updatepayment.AmountPaid;
+            paymentlist.PaymentDate = updatepayment.PaymentDate;
+
+            await _context.SaveChangesAsync();
+            return Ok(paymentlist);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteBilling([FromRoute] Guid id)
+        {
+            var paymentlist = await _context.Payment.FindAsync(id);
+            if (paymentlist == null)
+            {
+                return NotFound();
+            }
+
+            _context.Payment.Remove(paymentlist);
+            await _context.SaveChangesAsync();
+            return Ok(paymentlist);
+        }
+
+
+    }
 }

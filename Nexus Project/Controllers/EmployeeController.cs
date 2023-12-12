@@ -1,92 +1,60 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Nexus_Project.Models;
+using Nexus_Project.Models.DTO;
 
 namespace Nexus_Project.Controllers
 {
-/*
     [ApiController]
-    [Route("[controller]")]
-    public class EmployeesController : Controller
+    [Route("[Controller]")]
+    public class EmployeeController : Controller
     {
-        private Applicationdbcontext _context;
+        private readonly Applicationdbcontext _context;
+        private readonly IMapper mapper;
 
-        public EmployeesController(Applicationdbcontext context)
+        public EmployeeController(Applicationdbcontext context)
         {
             _context = context;
         }
-        [HttpPost]
-        public async Task<IActionResult> Add([FromBody] Employee Employees)
+        [HttpGet]
+        public async Task<IActionResult> GetEmployee()
         {
-            var Employee = new Employee()
-            {
-                EmployeeId = Employees.EmployeeId,
-                EmployeeName = Employees.EmployeeName,
-                Role = Employees.Role,
-                Username = Employees.Username,
-                Password = Employees.Password,
+            var employee = await _context.Employees.Include(a => a.RoleList).ToListAsync();
+            return Ok(employee);
+        }
 
-            };
+        [HttpPost]
+        public async Task<IActionResult> AddEmployee(EmployeeDto Employeepayloads)
+        {
+            var newemployee = mapper.Map<Employee>(Employeepayloads);
+            _context.Employees.Add(newemployee);
+            this._context.SaveChanges();
 
-            await _context.Employees.AddAsync(Employees);
-            await _context.SaveChangesAsync();
+            return Created($"/(newemployee.Id)", newemployee);
+        }
 
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateEmployee(EmployeeDto EmployeeDto)
+        {
+            var updateemployee = mapper.Map<Employee>(EmployeeDto);
+            this._context.Employees.Update(updateemployee);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            var employeetodelete = await _context.Employees.Include(a => a.RoleList).
+                Where(a => a.RoleId == id).FirstOrDefaultAsync();
             return Ok();
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var Employeeslist = await _context.Employees.ToListAsync();
-            return Ok(Employeeslist);
-        }
-
-        //[HttpGet]
-        //[Route("id : Guid")]
-        //public async Task<IActionResult> GetEmployees([FromRoute] Guid id)
-        //{
-        //    var Employeeslist = await _context.Employees.FindAsync(id);
-        //    if (Employeeslist == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(Employeeslist);
-        //}
-
-        //[HttpPut]
-        //[Route("id:guid")]
-        //public async Task<IActionResult> UpdateEmployees([FromBody] Guid Id,Employee UpdateEmp)
-        //{
-        //    var emplist = await _context.Employees.FindAsync(Id);
-        //    if(emplist == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //        emplist.EmployeeName = UpdateEmp.EmployeeName;
-        //        emplist.Role = UpdateEmp.Role;
-        //        emplist.Username = UpdateEmp.Username;
-        //        emplist.Password = UpdateEmp.Password;
-
-        //    await _context.SaveChangesAsync();
-        //    return Ok(emplist);
 
 
 
-        //}
-        //[HttpDelete]
-        //[Route("{id : Guid}")]
-        //public async Task<IActionResult> DeleteEmployee ([FromRoute] Guid id)
-        //{
-        //    var Employeeslist = await _context.Employees.FindAsync(id);
-        //    if (Employeeslist == null)
-        //    {
-        //        return NotFound();
-        
-        //    }
-        //    _context.Employees.Remove(Employeeslist);
-        //    _context.SaveChangesAsync();
-        //    return Ok();
-        //}
-   }*/ 
+    }
 }

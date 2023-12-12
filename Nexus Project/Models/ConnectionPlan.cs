@@ -11,6 +11,7 @@ namespace Nexus_Project.Models
         public string Description { get; set; }
         public decimal Charges { get; set; }
 
+
     }
 
 }

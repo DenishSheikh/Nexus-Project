@@ -8,9 +8,11 @@ namespace Nexus_Project.Models
     {
         [Key]
         public Guid  OrderId { get; set; }
-        [ForeignKey("CustomerId:Guid")]
-
-        public ConnectionPlan PlanId { get; set; }
+        
+        public Guid PlanId { get; set; }
+        [ForeignKey("PlanId")]
+        public ConnectionPlan Plan { get; set; }
+        public List<ConnectionPlan> ConnectionList { get; set; }
 
         public DateTime OrderDate { get; set; }
         public string Status { get; set; }

@@ -10,7 +10,11 @@ namespace Nexus_Project.Models.AutoMapper
             CreateMap<BillingDto, Billing>();
             CreateMap<EmployeeDto, Employee>();
             CreateMap<CustomerDto, Customer>();
-            
+            CreateMap<ConnectionPlanDto,ConnectionPlan>();
+            CreateMap<OrderDto, Order>();
+            CreateMap <RolesDto,Roles>();
+
+
         }
     }
 }

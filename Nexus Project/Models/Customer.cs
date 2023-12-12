@@ -13,6 +13,9 @@ namespace Nexus_Project.Models
         //public ProductEquipment ProductEquipmentId { get; set; }
         public int RoleId { get; set; }
         public Roles Roles { get; set; }
+        public List<Roles> RolesList { get; set; }
+
+
 
 
     }

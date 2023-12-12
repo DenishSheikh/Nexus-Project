@@ -10,7 +10,7 @@ namespace Nexus_Project.Models
         public Guid PaymentId { get; set; }
         //[ForeignKey("CustomerId:Guid")]
 
-        //public Customer CustomerId { get; set; }
+        public Customer CustomerId { get; set; }
         public decimal AmountPaid { get; set; }
         public DateTime PaymentDate { get; set; }
     }
