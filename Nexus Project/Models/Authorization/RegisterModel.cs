@@ -6,7 +6,7 @@ namespace NexusAuth.Model
     {
         [Required(ErrorMessage = "User Name Is Required")]
 
-        public string? UserName  { get; set; }
+        public string? UserName { get; set; }
 
         [EmailAddress]
         [Required(ErrorMessage = "Email is Required ")]

@@ -8,7 +8,7 @@ namespace NexusAuth.Model
         public string? UserName { get; set; }
 
         [Required(ErrorMessage = "Password Is Required")]
-        public string? Password { get; set; }   
+        public string? Password { get; set; }
 
 
 

@@ -41,8 +41,7 @@ namespace Nexus_Project.Controllers
             return Ok(Paymentlist);
         }
 
-        [HttpGet]
-        [Route("{id : Guid}")]
+        [HttpGet("{Guid}")]  
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
             var Payment = await _context.Payment.FindAsync(id);

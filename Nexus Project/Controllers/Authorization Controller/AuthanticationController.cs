@@ -102,7 +102,7 @@ namespace NexusAuth.Controllers
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
             var checkpass = await _userManager.CheckPasswordAsync(user, model.Password);
-            if (user != null && checkpass!=null )
+            if (user != null && checkpass != null)
             {
                 var userRole = await _userManager.GetRolesAsync(user);
 
@@ -132,16 +132,16 @@ namespace NexusAuth.Controllers
                     new
                     {
                         Token = new JwtSecurityTokenHandler().WriteToken(token),
-                        expiration = token.ValidTo
-                        userRole = userRole });
-
-                    }
-            );
+                        expiration = token.ValidTo,
+                        userRole = userRole
+                    });
+            
+            }
                 return Unauthorized(
                 new
                 {
                     user = user,
-                    checkpass= checkpass,
+                    checkpass = checkpass,
                 });
 
             }
@@ -151,5 +151,5 @@ namespace NexusAuth.Controllers
         }
 
 
-    }
-}
+    } 
+
